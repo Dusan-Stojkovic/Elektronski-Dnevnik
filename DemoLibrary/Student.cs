@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Odeljenja_Form
+namespace DemoLibrary
 {
-    public class Student
+    public class Student:IPersons
     {
         private SQL_Ocene sql = new SQL_Ocene();
 
@@ -11,18 +11,34 @@ namespace Odeljenja_Form
 
         public Student(string name,string surname)
         {
-            ID = sql.GetStudentID(name,surname);
+            UniqueID = sql.GetStudentID(name,surname);
             this.Name = name;
             this.Surname = surname;
         }
 
         public void NewGrades(string Subject)
         {
-            Grades = new Grades(ID, Subject);
+            Grades = new Grades(UniqueID, Subject);
+        }
+
+        public List<string> GetStudentList(string Class)
+        {
+            List<string> temp = sql.GetStudentNames(Class);
+            return temp;
+        }
+
+        public void ReadFullNameFromDB()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReadListOfPersons()
+        {
+            throw new NotImplementedException();
         }
 
         private int id;
-        public int ID
+        public int UniqueID
         {
             get { return id; }
             set { id = value; }

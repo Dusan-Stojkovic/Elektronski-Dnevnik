@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
+using DemoLibrary;
 
-namespace Odeljenja_Form
+namespace WindowsForms
 {
     public partial class ConfirmationForm : Form
     {

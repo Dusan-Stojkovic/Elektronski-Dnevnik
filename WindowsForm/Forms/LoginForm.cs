@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using DemoLibrary;
 
-namespace Odeljenja_Form
+namespace WindowsForms
 {
     public partial class LoginForm : Form
     {

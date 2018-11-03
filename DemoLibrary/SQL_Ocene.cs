@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 
-namespace Odeljenja_Form
+namespace DemoLibrary
 {
     class SQL_Ocene
     {

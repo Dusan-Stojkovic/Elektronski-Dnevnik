@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Odeljenja_Form
+namespace DemoLibrary
 {
-    public class Professors
+    public class Professors:IPersons
     {
+        SQL_Ocene sql = new SQL_Ocene();
+
         public Professors() { }
 
         public Professors(string n, string s,int ID)
         {
-            id = ID;
+            UniqueID = ID;
             Name = n;
             Surname = s;
-            Professor_Status();
+            ProfessorStatus();
         }
 
-        private void Professor_Status()
+        private void ProfessorStatus()
         {
             HeadOfYear = sql.IsHeadOfYear(name, surname);
 
@@ -27,27 +29,18 @@ namespace Odeljenja_Form
             TeachingClasses = sql.GetProfessorsClasses(name, surname);
         }
 
-        public List<string> GetSubjects(string Class)
+        public void ReadFullNameFromDB()
         {
-            if (HeadOfYear == Class)
-                return sql.GetSubjets(id, Class, true);
-            else
-                return sql.GetSubjets(id, Class, false);
+            throw new NotImplementedException();
         }
 
-        public bool CheckAccess(string Subject)
+        public void ReadListOfPersons()
         {
-            foreach (string str in teachingsubjects)
-            {
-                if (str == Subject) return true;
-            }
-            return false;
+            throw new NotImplementedException();
         }
-
-        SQL_Ocene sql = new SQL_Ocene();
 
         private int id;
-        public int ID
+        public int UniqueID
         {
             get{ return id; }
             set
@@ -88,6 +81,15 @@ namespace Odeljenja_Form
         {
             get { return teachingsubjects; }
             set { teachingsubjects = value; }
+        }
+        
+        //Improve this
+        public List<string> GetSubjects(string Class)
+        {
+            if (HeadOfYear == Class)
+                return sql.GetSubjets(id, Class, true);
+            else
+                return sql.GetSubjets(id, Class, false);
         }
 
         private List<string> teachingclasses;

@@ -1,4 +1,4 @@
-﻿namespace Odeljenja_Form
+﻿namespace WindowsForms
 {
     partial class ConfirmationForm
     {

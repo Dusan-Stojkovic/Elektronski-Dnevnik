@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Odeljenja_Form
+namespace DemoLibrary
 {
     public class ClassOfStudents
     {

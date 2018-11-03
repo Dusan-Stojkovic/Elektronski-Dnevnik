@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DemoLibrary;
 
-namespace Odeljenja_Form
+namespace WindowsForms
 {
     public partial class Dnevnik : Form
     {
+        IPersons Persons;
+
         Professors Professor;
         ClassOfStudents Class;
         Student SelectedStudent;
@@ -29,13 +32,11 @@ namespace Odeljenja_Form
             Professor = new Professors(Name, Surname, ID);
 
             ProfessorStatsLabel.Text = "Razredni: " + Professor.HeadOfYear + Environment.NewLine +
-                                       "Predaje Odeljenjima: " + ListToString(Professor.TeachingClasses) + 
+                                       "Predaje Odeljenjima: " + ListToString(Professor.TeachingClasses) +
                                        "Predmete: " + ListToString(Professor.TeachingSubjects);
 
-            foreach (string item in Professor.TeachingClasses)  
-            {
-                ClassComboBox.Items.Add(item);  //Fills ClassComboBox and keeps this initialized until Logout_Click occurs
-            }
+            ClassComboBox.Items.AddRange(Professor.TeachingClasses.ToArray());  //Fills ClassComboBox and keeps this initialized until Logout_Click occurs
+
         }
 
         
@@ -46,7 +47,7 @@ namespace Odeljenja_Form
             {
                 s = s + item + ", " + Environment.NewLine;
             }
-            return s.Substring(0, s.Length - 2) + Environment.NewLine;
+            return s.Substring(0, s.Length - 3) + Environment.NewLine;
         }
 
         private void ClassComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,11 +62,11 @@ namespace Odeljenja_Form
                 SubjectComboBox.Enabled = false;
             }
 
+            /*List<string> StudentList = SelectedStudent.GetStudentList(ClassComboBox.SelectedItem.ToString());
+            StudentComboBox.Items.AddRange(StudentList.ToArray()); For some reason this returns null*/
+
             Class = new ClassOfStudents(ClassComboBox.SelectedItem.ToString());
-            foreach (string student in Class.Students)
-            { 
-                StudentComboBox.Items.Add(student);
-            }
+            StudentComboBox.Items.AddRange(Class.Students.ToArray());
         }
 
         private void StudentComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,11 +82,7 @@ namespace Odeljenja_Form
 
             //Setup SubjectsComboBox
             List<string> subjects = Professor.GetSubjects(ClassComboBox.SelectedItem.ToString());
-            foreach (string str in subjects)
-            {
-                SubjectComboBox.Items.Add(str);
-            }
-
+            SubjectComboBox.Items.AddRange(subjects.ToArray());
         }
 
         private void MakeStudent(string NameSurname)
@@ -106,7 +103,7 @@ namespace Odeljenja_Form
             {
                 if (GradesTextBox.Enabled == false)
                 {
-                    if (Professor.CheckAccess(SubjectComboBox.SelectedItem.ToString()))     //Professor must teach that subject
+                    if (Professor.TeachingSubjects.Contains(SubjectComboBox.SelectedItem.ToString()))     //Professor must teach that subject
                     {
                         //Gradesbuffer = GradesTextBox.Text;
                         GradesTextBox.Enabled = true;

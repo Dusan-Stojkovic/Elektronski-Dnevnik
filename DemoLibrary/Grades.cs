@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Odeljenja_Form
+namespace DemoLibrary
 {
     public class Grades
     {
