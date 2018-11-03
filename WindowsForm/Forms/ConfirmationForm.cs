@@ -50,14 +50,14 @@ namespace WindowsForms
         {
             try
             {
-                student.Grades.SetGrade(NewGrade,student.ID);
+                student.Grades.SetGrade(NewGrade,student.UniqueID);
                 MessageBox.Show($"Operation completed successfully");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);    //Operation failure
             }
-            dn.ShowAction(student.ID,student.Grades.Subject);
+            dn.ShowAction(student.UniqueID,student.Grades.Subject);
             this.Hide();
         }
 
